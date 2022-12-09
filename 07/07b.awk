@@ -30,13 +30,26 @@ BEGIN {
 }
 
 END {
-    result = 0
+    total_space = 70000000
+    needed_space = 30000000
+    for (f in sizes) total_used_space += sizes[f]
+    free_space = total_space - total_used_space
+    needed_space -= free_space # we already have this much free space
+
+    smallest_satisfactory_t = 0
     for (d in dirs) {
         t = 0
         for (f in sizes) {
             if (substr(f, 1, length(d)) == d) t += sizes[f]
         }
-        if (t <= 100000) result += t
+        if (t > needed_space) {
+            if (!smallest_satisfactory_t || \
+                    t < smallest_satisfactory_t \
+                    ) {
+                smallest_satisfactory_t = t
+                best_dir = d
+            }
+        }
     }
-    print result
+    print best_dir, smallest_satisfactory_t
 }

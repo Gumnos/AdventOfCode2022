@@ -3,8 +3,9 @@ function abs(i) {
 }
 
 BEGIN {
-    # head & tail positions
-    hx = hy = tx = ty = 0
+    # x[0],y[0] is the head
+    LEN = 10
+    for (i=0; i < LEN; i++) x[i] = y[i] = 0
 }
 
 $1 == "R" {
@@ -30,21 +31,32 @@ $1 == "D" {
 {
     steps = $2
     while (steps--) {
-        hx += sx
-        hy += sy
-        dx = hx - tx
-        dy = hy - ty
-        if (abs(dx) >  1) {
-            tx += sx
-            if (dy > 0) ++ty
-            else if (dy < 0) --ty
+        # move the head
+        x[0] += sx
+        y[0] += sy
+        for (i=1; i < LEN; i++) {
+            dx = x[i-1] - x[i]
+            dy = y[i-1] - y[i]
+            if (dx > 1) {
+                ++x[i]
+                if (dy > 0) ++y[i]
+                else if (dy < 0) --y[i]
+            } else if (dx < -1) {
+                --x[i]
+                if (dy > 0) ++y[i]
+                else if (dy < 0) --y[i]
+            } else if (dy > 1) {
+                ++y[i]
+                if (dx > 0) ++x[i]
+                else if (dx < 0) --x[i]
+            } else if (dy < -1) {
+                --y[i]
+                if (dx > 0) ++x[i]
+                else if (dx < 0) --x[i]
+            }
         }
-        if (abs(dy) >  1) {
-            ty += sy
-            if (dx > 0) ++tx
-            else if (dx < 0) --tx
-        }
-        visited[tx, ty] = 1
+
+        visited[x[LEN-1], y[LEN-1]] = 1
     }
 }
 

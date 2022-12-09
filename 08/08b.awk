@@ -21,40 +21,28 @@ BEGIN {
 }
 
 END {
-    #print "Do east/west visiblity"
-    for (row=1; row <= NR; row++) {
-        tallesta = tallestb = -1
-        rcol = WIDTH
-        for (col=1; col <= WIDTH; col++) {
-            if (data[row, col] > tallesta) {
-                visible[row,col] = 1
-                tallesta = data[row, col]
-            }
-            if (data[row, rcol] > tallestb) {
-                visible[row,rcol] = 1
-                tallestb = data[row, rcol]
-            }
-            --rcol
+    # 2 through dim-1 because exteriors
+    # will have a 0 multiplier
+    p()
+    best_score = 0
+    for (r=2; r <= NR-1; r++) {
+        for (c=2; c <= WIDTH-1; c++) {
+            h = data[r, c]
+            nh = sh = eh = wh = 0
+            nr = sr = r
+            ec = wc = c
+            while (--nr > 1     && data[nr, c] < h && data[nr, c] >= nh) nh = data[nr, c];
+            while (++sr < NR    && data[sr, c] < h && data[sr, c] >= sh) sh = data[sr, c];
+            while (++ec < WIDTH && data[r, ec] < h && data[r, ec] >= eh) eh = data[r, ec];
+            while (--wc > 1     && data[r, wc] < h && data[r, wc] >= wh) wh = data[r, wc];
+            n = (r - nr)
+            s = (sr - r)
+            e = (ec - c)
+            w = (c - wc)
+            score = n * s * w * e
+            if (score > best_score) best_score = score
+            #printf("(%i,%i) = %i * %i * %i * %i = %i\n", r, c, n, s, e, w, score)
         }
     }
-    #print "Do top/bottom visiblity"
-    for (col=1; col <= WIDTH; col++) {
-        tallesta = tallestb = -1
-        rrow = NR
-        for (row=1; row <= NR; row++) {
-            if (data[row, col] > tallesta) {
-                visible[row, col] = 1
-                tallesta = data[row, col]
-            }
-            if (data[rrow, col] > tallestb) {
-                visible[rrow,col] = 1
-                tallestb = data[rrow, col]
-            }
-            --rrow
-        }
-    }
-    #p()
-    t = 0
-    for (k in visible) t += visible[k]
-    print t
+    print best_score
 }

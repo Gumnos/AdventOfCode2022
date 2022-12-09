@@ -1,4 +1,4 @@
-BEGIN {SIZE=4}
+BEGIN {SIZE=14}
 
 function check_distinct_buffer(_seen) {
     for (k in buffer) _seen[buffer[k]] = 1

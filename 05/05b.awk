@@ -69,6 +69,15 @@ moving && /^move [0-9][0-9]* from [0-9][0-9]* to [0-9][0-9]* *$/ {
     #print $0
     how_many = $2
     src = $4
+    dest = 0
+    while (how_many-- > 0) {
+        v = pop(src)
+        #printf("Moving [%s] from %i to %i\n", v, src, dest)
+        push(dest, v)
+    }
+
+    how_many = $2
+    src = 0
     dest = $6
     while (how_many-- > 0) {
         v = pop(src)

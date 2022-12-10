@@ -1,3 +1,4 @@
+#!/usr/bin/awk -f
 BEGIN {
     TOP = 3
 }

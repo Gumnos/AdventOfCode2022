@@ -1,3 +1,4 @@
+#!/usr/bin/awk -f
 BEGIN {
     MAX_HEIGHT = 9
     SUBSEP=","

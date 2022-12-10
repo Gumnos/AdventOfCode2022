@@ -1,3 +1,4 @@
+#!/usr/bin/awk -f
 function abs(i) {
     return i < 0 ? -i : i
 }

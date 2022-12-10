@@ -1,3 +1,4 @@
+#!//usr/bin/awk -f
 function add(c, _before) {
     _before = x
     x += q[c] + 0

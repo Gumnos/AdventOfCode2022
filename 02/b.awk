@@ -1,3 +1,4 @@
+#!/usr/bin/awk -f
 {
     if ($2 == "X") {
         # lose

@@ -1,3 +1,4 @@
+#!/usr/bin/awk -f
 function get_top(col) {
     return data[col, size(col)]
 }

@@ -1,3 +1,4 @@
+#!/usr/bin/awk -f
 BEGIN {
     for (i=1; i<=26; i++) {
         lcase = sprintf("%c", 96+i)

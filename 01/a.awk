@@ -1,3 +1,4 @@
+#!//usr/bin/awk -f
 BEGIN {elfid = 1}
 
 /^$/ {elfid++}

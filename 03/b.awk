@@ -1,3 +1,4 @@
+#!/usr/bin/awk -f
 function find_common() {
     for (c in seen_counts)
         if (seen_counts[c] == 3) {

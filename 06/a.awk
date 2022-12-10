@@ -1,3 +1,4 @@
+#!/usr/bin/awk -f
 BEGIN {SIZE=4}
 
 function check_distinct_buffer(_seen) {

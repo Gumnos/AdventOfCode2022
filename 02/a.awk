@@ -1,3 +1,4 @@
+#!/usr/bin/awk -f
 function beats(them, me) {
     return (them == 1 && me == 3) \
         || (them == 2 && me == 1) \

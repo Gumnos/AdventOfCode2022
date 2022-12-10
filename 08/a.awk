@@ -1,3 +1,4 @@
+#!/usr/bin/awk -f
 function p(_r, _c) {
     for (_r=1; _r<=NR; _r++) {
         for (_c=1; _c <= WIDTH; _c++) {
